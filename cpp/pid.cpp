@@ -15,7 +15,6 @@
 #include <fstream>
 #include <iostream>
 
-
 float PID_Controller::PID(float setpoint, float output, float integral, float previous_output, float * control_signal)
     {
         float error = setpoint - output;
@@ -27,11 +26,20 @@ float PID_Controller::PID(float setpoint, float output, float integral, float pr
         return integral;
     }
 
-
+/*
+Here you can define the transfer function
+We know: Y(s) = G(s) * U(s)
+For this code I chose G(s) as: 1 / (1 + s) to model my plant. You can choose whever you want
+Given G(s) = 1 / (1 + s) : Y(s) = 1/(1+s) * U(s) -> Y(s) + sY(s) = U(s) -> inverse Laplace transform -> 
+y(t) + y'(t) = u(t) -> y'(t) = -y(t) + u(t) if we assume y(0) = 0
+So we can say: (output)' = -output + control_signal or d(output) = dt * ( -output + control_signal)
+Now it is clear how the plant behaviour is modeled, and you can model your system here in this function as you like
+It mean there is no need you touch other functions. Just put your model, and choose correct kp, ki and kd
+*/
 float PID_Controller::Plant_Update(float output, float control_signal)
     {
-        float O = output + (dt * (-output + control_signal));
-        return O;
+        float Out = output + (dt * (-output + control_signal));
+        return Out;
     }
 
 

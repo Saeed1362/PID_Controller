@@ -46,6 +46,7 @@ int main()
     output_data.reserve(steps);
     control_data.reserve(steps);
 
+    //// [ PID gains can be set here via the constructor as: pid(kp, ki, kd)] ////    
     PID_Controller pid(1.0f, 5.5f, 0.1f);
 
 

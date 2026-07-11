@@ -27,11 +27,21 @@ def PID(Kp, Ki, Kd, setpoint, output, integral, previous_output, dt):
 
     return control_signal, integral
 
+# Here you can define the transfer function
+# We know: Y(s) = G(s) * U(s)
+# For this code I chose G(s) as: 1 / (1 + s) to model my plant. You can choose whever you want
+# Given G(s) = 1 / (1 + s) : Y(s) = 1/(1+s) * U(s) -> Y(s) + sY(s) = U(s) -> inverse Laplace transform -> 
+# y(t) + y'(t) = u(t) -> y'(t) = -y(t) + u(t) if we assume y(0) = 0
+# So we can say: (output)' = -output + control_signal or d(output) = dt * ( -output + control_signal)
+# Now it is clear how the plant behaviour is modeled, and you can model your system here in this function as you like
+# It mean there is no need you touch other functions. Just put your model, and choose correct kp, ki and kd
 
 def Plant_Update(output, control_signal, dt):
 
-    O = output + (dt * (-output + control_signal))
-    return O
+    
+    Out = output + (dt * (-output + control_signal))
+
+    return Out
 
 def plot_pid(time_data, setpoint_data, output_data, control_data):
 
@@ -57,9 +67,11 @@ def main():
     setpoint = setpoint_amplitude
     previous_output = output
 
+    #/////////////// [ PID gains can be set here ///////////////
     Kp = 1.0
     Ki = 20.5
     Kd = 0.1
+    #///////////////////////////////////////////////////////////
 
     time_data = []
     setpoint_data = []
