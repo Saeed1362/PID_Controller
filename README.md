@@ -1,11 +1,12 @@
 ## How to Run
 
-This project includes two versions of the PID controller simulation:
+This project includes three versions of the PID controller simulation:
 
 * Python version
 * C++ version
+* C version
 
-Both versions simulate a PID controller and plot the system response.
+All versions simulate a PID controller but C++ and Python plot the system response.
 
 ---
 
@@ -72,6 +73,37 @@ pid_result.csv
 ```
 
 This file contains the simulation data and can be plotted manually if needed.
+
+
+## Running the C Version
+
+### Requirements
+
+Make sure you have a C compiler installed, such as `gcc`.
+
+The C version runs the PID simulation but does not plot the system response.
+
+### Compile
+
+From the project directory, compile the code using:
+
+```bash
+gcc main.c pid.c -o pid_sim
+```
+
+### Run
+
+On Windows:
+
+```bash
+pid_sim.exe
+```
+
+On Linux/macOS:
+
+```bash
+./pid_sim
+```
 
 
 <img width="640" height="480" alt="Py" src="https://github.com/user-attachments/assets/8f812806-6b35-47e4-bb39-1322afa09875" />
